@@ -61,14 +61,23 @@ class MenuController
   end
 
   def view_entry_by_number
-    puts "Specify entry number to view"
-    number = gets.to_i
-    if number.is_a? Integer && number <= address_book.entries.length
-      puts address_book.entries[number].to_s
-      entry_submenu(address_book.entries[number])
+    if address_book.entries.length == 0
+      system "clear"
+      puts "Sorry, no entries to view"
+      main_menu
     else
-      puts "Sorry, entry number must be a number between 0 and #{address_book.entries.length}"
-      view_entry_by_number
+      puts "Specify entry number to view or type e to exit"
+      selection = gets.chomp
+      if selection == "e"
+        system "clear"
+        main_menu
+      elsif selection.to_i <= address_book.entries.length - 1
+        puts address_book.entries[selection.to_i].to_s
+        entry_submenu(address_book.entries[selection.to_i])
+      else
+        puts "Sorry, entry number must be a number between 0 and #{address_book.entries.size - 1}"
+        view_entry_by_number
+      end
     end
   end
 
