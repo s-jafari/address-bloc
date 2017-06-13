@@ -56,8 +56,8 @@ class MenuController
   end
 
   def delete_all_entries
-    address_book.entries.each do |entry|
-      address_book.entries.delete(entry)
+    while address_book.entries.length > 0
+      address_book.entries.shift
     end
     system "clear"
     puts "All entries deleted"
